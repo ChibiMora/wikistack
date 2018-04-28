@@ -4,12 +4,15 @@ const bodyParser = require(`body-parser`);
 const layout = require('./views/layout');
 const app = express();
 const PORT = 8888;
+const wikiRouter = require('./routes/wiki');
+//const userRouter = require('./routes/user');
 
 // const db = require('./models').db;
 const {db, Page, User} = require('./models');
 //const { db } = require('./models');
 
-
+app.use('/wiki', wikiRouter);
+//app.use('/user', userRouter);
 
 
 app.use(morgan(`dev`));
@@ -20,7 +23,6 @@ app.use('/views', layout);
 app.get('/', async (req, res) => {
      await res.send(layout(''));
     console.log(`hello world`);
-
 });
 
 db.authenticate().
